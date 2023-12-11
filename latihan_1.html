@@ -5,26 +5,27 @@
     <title>React latihan</title>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-
-    <!-- Don't use this in production: -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root" style="display: flex; gap: 20px; align-items: center"></div>
     <script type="text/babel">
       function Button({ variant, content, likes }) {
         return (
           <button
             onClick={variant}
-            disabled={content == "Reset!" && likes == 0}
+            disabled={
+              (likes >= 0 && likes < 10 && content === "reset") ||
+              ((likes < 0 || likes >= 10) && content !== "reset")
+            }
           >
             {content}
           </button>
         );
       }
 
-      function CounterText({ content }) {
-        return <p>{content}</p>;
+      function CounterText({ likes }) {
+        return likes < 0 || likes >= 10 ? <p>Done!</p> : <p>{likes}</p>;
       }
 
       function HomePage() {
@@ -44,10 +45,10 @@
 
         return (
           <>
-            <Button variant={decrement} content="-" />
-            <CounterText content={likes} />
-            <Button variant={increment} content="+" />
-            <Button variant={reset} content="Reset!" likes={likes} />
+            <Button variant={decrement} content="-" likes={likes} />
+            <CounterText likes={likes} />
+            <Button variant={increment} content="+" likes={likes} />
+            <Button variant={reset} content="reset" likes={likes} />
           </>
         );
       }
