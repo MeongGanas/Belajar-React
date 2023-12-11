@@ -15,6 +15,16 @@ function Toggle() {
   return <button onClick={handlePesan}>{pesan}</button>;
 }
 
+function List({ items }) {
+  return (
+    <>
+      {items.map((item, i) => (
+        <li key={i}>{item}</li>
+      ))}
+    </>
+  );
+}
+
 export default function App() {
   const items = ["Farrel", "Rivaldi", "Devi"];
 
@@ -22,6 +32,9 @@ export default function App() {
     <>
       <Greeting name={"Farrel"} />
       <Toggle />
+      <ul>
+        <List items={items} />
+      </ul>
     </>
   );
 }
