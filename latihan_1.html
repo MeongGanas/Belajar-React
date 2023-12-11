@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React latihan</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      function Button({ variant, content, likes }) {
+        return (
+          <button
+            onClick={variant}
+            disabled={content == "Reset!" && likes == 0}
+          >
+            {content}
+          </button>
+        );
+      }
+
+      function CounterText({ content }) {
+        return <p>{content}</p>;
+      }
+
+      function HomePage() {
+        const [likes, setLikes] = React.useState(0);
+
+        function decrement() {
+          setLikes(likes - 1);
+        }
+
+        function increment() {
+          setLikes(likes + 1);
+        }
+
+        function reset() {
+          setLikes(0);
+        }
+
+        return (
+          <>
+            <Button variant={decrement} content="-" />
+            <CounterText content={likes} />
+            <Button variant={increment} content="+" />
+            <Button variant={reset} content="Reset!" likes={likes} />
+          </>
+        );
+      }
+
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+      root.render(<HomePage />);
+    </script>
+  </body>
+</html>

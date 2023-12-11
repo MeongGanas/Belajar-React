@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script>
+      const app = document.getElementById("app");
+
+      const h1 = document.createElement("h1");
+
+      const h1Content = document.createTextNode("Halo");
+
+      h1.appendChild(h1Content);
+
+      app.appendChild(h1);
+    </script>
+  </body>
+</html>
