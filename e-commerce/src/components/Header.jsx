@@ -3,32 +3,150 @@
 
 import { useState } from "react";
 
-export default function Header({ cart_total, cart_item, total }) {
+export default function Header({ cart_total, cart_item, total, handleSearch }) {
   const [isClick, setIsClick] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   function handleShow() {
     setIsClick(!isClick);
   }
 
+  function handleToggle() {
+    setIsActive(!isActive);
+  }
+
   return (
     <>
-      <header className="flex justify-between items-center px-10 md:px-20 py-4 fixed top-0 left-0 right-0 bg-green-700 shadow-md text-white">
+      <header className="flex justify-between items-center px-5 md:px-10 lg:px-20 py-4 fixed top-0 left-0 right-0 bg-green-700 shadow-md text-white">
         <nav>
-          <div></div>
-          <ul className="gap-12 font-semibold text-lg hidden sm:flex">
-            <li>
-              <a href="#">Home</a>
-            </li>
-            <li>
-              <a href="#">Items</a>
-            </li>
-            <li>
-              <a href="#">Contact</a>
-            </li>
-          </ul>
+          <div className="sm:hidden">
+            <button
+              type="button"
+              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-lg md:hidden hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200"
+              aria-controls="navbar-user"
+              aria-expanded="false"
+              onClick={handleToggle}
+            >
+              <span className="sr-only">Open main menu</span>
+              <svg
+                className="w-5 h-5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 17 14"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M1 1h15M1 7h15M1 13h15"
+                />
+              </svg>
+            </button>
+          </div>
+          <div
+            className={`absolute menu top-[100%] left-0 bg-white shadow-md items-center justify-between ${
+              isActive ? "clicked" : ""
+            } w-full md:flex md:w-auto md:order-1 md:bg-transparent md:shadow-none md:static`}
+          >
+            <ul className="flex flex-col font-medium p-4 md:p-0 border border-gray-100 rounded-lg  md:space-x-8 md:flex-row md:mt-0 md:border-0">
+              <li>
+                <a
+                  href="#"
+                  className="block py-2 px-3 text-black md:text-white hover:bg-slate-400 rounded md:bg-transparent md:hover:text-slate-300 transition duration-150 md:p-0 "
+                  aria-current="page"
+                >
+                  Home
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="block py-2 px-3 text-black md:text-white rounded hover:bg-slate-400 md:hover:bg-transparent md:hover:text-slate-300 transition duration-150 md:p-0 "
+                >
+                  Products
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="block py-2 px-3 text-black md:text-white rounded hover:bg-slate-400 md:hover:bg-transparent md:hover:text-slate-300 transition duration-150 md:p-0 "
+                >
+                  Contact
+                </a>
+              </li>
+              <li className="md:hidden">
+                <form className="items-center py-2 sm:flex sm:min-w-[250px] lg:min-w-[450px]">
+                  <label htmlFor="simple-search" className="sr-only">
+                    Search
+                  </label>
+                  <div className="relative w-full">
+                    <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                      <svg
+                        className="w-4 h-4"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          stroke="black"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                        />
+                      </svg>
+                    </div>
+                    <input
+                      type="text"
+                      id="simple-search"
+                      className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  "
+                      placeholder="Search fruit name..."
+                      onChange={handleSearch}
+                    />
+                  </div>
+                </form>
+              </li>
+            </ul>
+          </div>
         </nav>
-        <div className="shop-cart flex items-center gap-5">
-          <button className="flex gap-3 cursor-default">
+        <div className="seach-bar">
+          <form className="items-center hidden sm:flex sm:min-w-[250px] lg:min-w-[450px]">
+            <label htmlFor="simple-search" className="sr-only">
+              Search
+            </label>
+            <div className="relative w-full">
+              <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <svg
+                  className="w-4 h-4"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    stroke="black"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                  />
+                </svg>
+              </div>
+              <input
+                type="text"
+                id="simple-search"
+                className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  "
+                placeholder="Search fruit name..."
+                onChange={handleSearch}
+              />
+            </div>
+          </form>
+        </div>
+        <div className="shop-cart flex items-center gap-2 sm:gap-5">
+          <button className="flex gap-2 cursor-default">
             <h1>{cart_total}</h1>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +216,7 @@ export default function Header({ cart_total, cart_item, total }) {
                       <tr className="bg-white border-b" key={item.id}>
                         <th
                           scope="row"
-                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                          className="px-6 py-4 font-medium  whitespace-nowrap"
                         >
                           {item.item_name}
                         </th>
@@ -109,7 +227,7 @@ export default function Header({ cart_total, cart_item, total }) {
                     ))}
                     <tr>
                       <th
-                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                        className="px-6 py-4 font-medium  whitespace-nowrap"
                         colSpan="3"
                       >
                         Total:
