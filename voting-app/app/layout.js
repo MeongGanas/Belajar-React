@@ -1,17 +1,18 @@
-import { Inter } from "next/font/google";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata = {
-  title: "Voting App",
-  description: "Voting App",
-};
-
-export default function RootLayout({ children }) {
+export default function RootLayout(props) {
+  const { children } = props;
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <head>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Voting App</title>
+      </head>
+      <body>
+        <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
+      </body>
     </html>
   );
 }
