@@ -1,31 +1,31 @@
 "use client";
 import MyCard from "./components/MyCard";
 import Filter from "./components/Filter";
+import CreateVote from "./components/CreateVote";
 import { useState } from "react";
 
 export default function Home() {
-  const data = [
-    {
-      id: 1,
-      title: "PEMILU",
-      subtitle: "Pemilihan umum presiden dan wakil presiden (2024-2029)",
-      selections: ["Anies, Cak Imin", "Prabowo, Gibran", "Ganjar, Mahfud"],
-      category: "politic",
-    },
-    {
-      id: 2,
-      title: "Game yang Bagus",
-      subtitle: "Bantu saya memilih game yang bagus",
-      selections: ["MIR4", "Mobile Legend", "GTA V"],
-      category: "game",
-    },
-  ];
+  const [data, setData] = useState([]);
 
   const [showData, setShowData] = useState(data);
 
   const handleCategory = (val) => {
     const newData = data.filter((item) => item.category === val.toLowerCase());
     val === "All" ? setShowData(data) : setShowData(newData);
+  };
+
+  const handleMake = (title, subtitle, selections, category) => {
+    const newData = {
+      id: data.length,
+      title,
+      subtitle,
+      selections,
+      category: category.toLowerCase(),
+    };
+
+    const nextData = [...data, newData];
+    setData(nextData);
+    setShowData(nextData);
   };
 
   return (
@@ -35,6 +35,9 @@ export default function Home() {
           <h1 className="text-3xl font-bold">Voting-App</h1>
           <div className="mt-5">
             <Filter data={data} handleCategory={handleCategory} />
+          </div>
+          <div className="mt-2">
+            <CreateVote handleMake={handleMake} />
           </div>
         </div>
         {showData.map((item) => (

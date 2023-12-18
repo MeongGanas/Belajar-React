@@ -1,9 +1,7 @@
 "use client";
 import {
   Card,
-  CardMedia,
   CardContent,
-  CardActions,
   Typography,
   Button,
   FormControl,
@@ -18,6 +16,12 @@ import { useState } from "react";
 export default function MyCard({ title, subtitle, selections }) {
   const [value, setValue] = useState(null);
   const [isSubmit, setIsSubmit] = useState(false);
+  const [votes, setVotes] = useState(
+    selections.reduce((acc, item) => {
+      acc[item] = 0;
+      return acc;
+    }, {})
+  );
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -26,6 +30,14 @@ export default function MyCard({ title, subtitle, selections }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsSubmit(true);
+
+    const newVotes = votes;
+    const set = newVotes[value] + 1;
+    newVotes[value] = set;
+
+    console.log(newVotes);
+
+    setVotes(newVotes);
   };
 
   return (
@@ -60,7 +72,17 @@ export default function MyCard({ title, subtitle, selections }) {
               Pilih sesuai keinginan hati anda
             </FormHelperText>
             {isSubmit ? (
-              <h1 className="mt-2">Anda sudah memilih!</h1>
+              <div>
+                <h1 className="mt-2 text-xl font-bold">Anda sudah memilih!</h1>
+
+                <h1 className="text-lg mt-4">Result: </h1>
+                {Object.entries(votes).map(([item, value]) => (
+                  <h1 key={item}>
+                    {item} : <span className="text-red-500">{value}</span>{" "}
+                    memilih
+                  </h1>
+                ))}
+              </div>
             ) : (
               <Button variant="contained" sx={{ mt: 2 }} type="submit">
                 Submit
